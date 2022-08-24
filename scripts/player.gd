@@ -3,16 +3,26 @@ extends KinematicBody2D
 var acceleration := 800
 var friction := 1000
 
+
+var health = 100
+
+
 var velocity := Vector2.ZERO
 var speed
 var mouse_direction
 var input_vector
 var can_shoot = true
 
+signal player_position
+
+onready var damage_timer = $DamageTimer
 onready var animation_tree := $AnimationTree
 onready var player_sprite := $YSort/Sprite
-var player_texture = preload("res://assets/player.png")
-var player_nohand_texture = preload("res://assets/player_nohand.png")
+onready var player_texture = preload("res://assets/player.png")
+onready var player_nohand_texture = preload("res://assets/player_nohand.png")
+
+onready var blood_hit_path = preload("res://scenes/effects/blood_hit.tscn")
+onready var blood_death_path = preload("res://scenes/effects/blood_death.tscn")
 
 enum {
 	UNARMED,
@@ -23,6 +33,7 @@ var state = UNARMED
 
 func _ready():
 	animation_tree.active = true
+	damage_timer.connect("timeout", self, "take_damage")
 
 func _physics_process(delta):
 	movement(delta)
@@ -52,8 +63,7 @@ func movement(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 	
 	velocity = move_and_slide(velocity)
-
-
+	emit_signal("player_position", self.position)
 
 func unarmed(delta):
 	speed = 90
@@ -104,13 +114,35 @@ func aim(delta):
 				animation_tree.get("parameters/playback").travel("walk") # should be running backwards animation
 				speed = 100
 	else:
-		animation_tree.get("parameters/playback").travel("idle")	
+		animation_tree.get("parameters/playback").travel("idle")
 	
 	$YSort/Gun.position = mouse_direction # 3d effect for gun and player using ysort
 	$YSort/Gun.can_shoot = true
 	$YSort/Gun.visible = true
 	if Input.is_action_just_released("mouse_right"):
 		state = UNARMED
-		player_sprite.texture = player_texture	
+		player_sprite.texture = player_texture
 		$Camera2D.drag_margin_h_enabled = true
 		$Camera2D.drag_margin_v_enabled = true
+
+
+func _on_Hurtbox_body_entered(body):
+	if body.is_in_group("enemy"):
+		damage_timer.start()
+		
+func _on_Hurtbox_body_exited(body):
+	if body.is_in_group("enemy"):
+		damage_timer.stop()
+
+func take_damage():
+	health -= 5
+	var blood_hit = blood_hit_path.instance()
+	blood_hit.position = self.global_position
+	get_tree().current_scene.add_child(blood_hit)
+	if health < 1:
+		var blood_death = blood_death_path.instance()
+		blood_death.position = self.position
+		get_tree().current_scene.add_child(blood_death)
+	print(health)
+	
+

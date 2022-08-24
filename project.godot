@@ -10,9 +10,9 @@ config_version=4
 
 [application]
 
-config/name="Sunshine"
+config/name="monke"
 run/main_scene="res://scenes/world.tscn"
-boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+boot_splash/show_image=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
@@ -98,6 +98,14 @@ mouse_left={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_render/layer_1="World"
+2d_render/layer_2="Player"
+2d_render/layer_3="Enemy"
+2d_render/layer_4="EnemyHurtbox"
+2d_render/layer_5="Projectile"
 
 [physics]
 

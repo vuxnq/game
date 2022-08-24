@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
 var velocity = Vector2(1, 0)
-var speed = 2500
+var speed = 800
 var max_distance = 1000
+signal bullet_hit
 
 var travelled_distance = 0
 
