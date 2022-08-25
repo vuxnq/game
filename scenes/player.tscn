@@ -1002,6 +1002,7 @@ height = 6.0
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 0, -11 )
+z_index = 1
 script = ExtResource( 2 )
 
 [node name="YSort" type="YSort" parent="."]

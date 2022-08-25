@@ -592,6 +592,7 @@ height = 4.0
 
 [node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
 position = Vector2( 0, -11 )
+z_index = 1
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

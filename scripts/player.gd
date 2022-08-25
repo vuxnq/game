@@ -26,7 +26,7 @@ onready var blood_death_path = preload("res://scenes/effects/blood_death.tscn")
 
 enum {
 	UNARMED,
-	AIM
+	AIM,
 }
 
 var state = UNARMED
@@ -67,6 +67,8 @@ func movement(delta):
 
 func unarmed(delta):
 	speed = 90
+	player_sprite.texture = player_texture
+	
 	$Camera2D.offset = $Camera2D.offset.move_toward(Vector2.ZERO, 100 * delta)
 	
 	if input_vector != Vector2.ZERO:
@@ -82,11 +84,11 @@ func unarmed(delta):
 	
 	$YSort/Gun.can_shoot = false
 	$YSort/Gun.visible = false
-	if Input.is_action_just_pressed("mouse_right"):
+	if Input.is_action_pressed("mouse_right"):
 		state = AIM
 		$AimAudio.play()
-
-
+	if $YSort/Gun.reload == true:
+		aim(delta)
 
 func aim(delta):
 	speed = 80
@@ -120,9 +122,8 @@ func aim(delta):
 	$YSort/Gun.position = mouse_direction # 3d effect for gun and player using ysort
 	$YSort/Gun.can_shoot = true
 	$YSort/Gun.visible = true
-	if Input.is_action_just_released("mouse_right"):
+	if not Input.is_action_pressed("mouse_right"):
 		state = UNARMED
-		player_sprite.texture = player_texture
 		$Camera2D.drag_margin_h_enabled = true
 		$Camera2D.drag_margin_v_enabled = true
 
@@ -139,10 +140,16 @@ func take_damage():
 	health -= 5
 	var blood_hit = blood_hit_path.instance()
 	blood_hit.position = self.global_position
+	blood_hit.amount = 8
+	blood_hit.initial_velocity = 80
+	blood_hit.spread = 180
 	get_tree().current_scene.add_child(blood_hit)
 	if health < 1:
 		var blood_death = blood_death_path.instance()
 		blood_death.position = self.position
+		blood_death.amount = 32
+		blood_death.scale_amount = 5
+		blood_death.spread = 180
 		get_tree().current_scene.add_child(blood_death)
 	print(health)
 	

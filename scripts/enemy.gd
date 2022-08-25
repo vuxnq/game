@@ -96,6 +96,7 @@ func take_damage(hit_position):
 	player_detected = true
 	var blood_hit = blood_hit_path.instance()
 	blood_hit.position = hit_position
+	blood_hit.rotation = global_position.angle_to_point(player_position)
 	get_tree().current_scene.add_child(blood_hit)
 	if health == 2:
 		$Sprite.texture = damaged1_texture
@@ -104,5 +105,6 @@ func take_damage(hit_position):
 	elif health < 1:
 		var blood_death = blood_death_path.instance()
 		blood_death.position = hit_position
+		blood_death.rotation = global_position.angle_to_point(player_position)
 		get_tree().current_scene.add_child(blood_death)
 		queue_free()
