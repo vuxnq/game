@@ -650,11 +650,11 @@ shape = SubResource( 95 )
 position = Vector2( 0, 1 )
 shape = SubResource( 96 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="FoolinAroundTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_Hurtbox_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FoolinAroundTimer" to="." method="_on_FoolinAroundTimer_timeout"]

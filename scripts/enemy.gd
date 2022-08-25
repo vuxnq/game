@@ -1,24 +1,34 @@
 extends KinematicBody2D
 
 onready var animation_tree := $AnimationTree
-onready var timer = $Timer
+onready var timer = $FoolinAroundTimer
 onready var blood_hit_path = preload("res://scenes/effects/blood_hit.tscn")
 onready var blood_death_path = preload("res://scenes/effects/blood_death.tscn")
 onready var damaged1_texture = preload("res://assets/enemy_damage1.png")
 onready var damaged2_texture = preload("res://assets/enemy_damage2.png")
 
 enum {
-	SEE,
-	SEENT
+	IDLE,
+	NEW_DIRECTION,
+	MOVE
 }
 
-var state = SEENT
+var player_detected = false
 var player_position
-var random_direction
+
+var state = MOVE
+var direction = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
+var velocity = Vector2.ZERO
+
+var speed = 50
+var acceleration = 1000
+var friction = 1000
+
 var health = 3
 var bullet = preload("res://scenes/bullet.tscn")
 
 func _ready():
+	randomize()
 	animation_tree.active = true
 	
 	var player = get_tree().get_root().find_node("Player", true, false)
@@ -26,38 +36,54 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":
-		state = SEE
+		player_detected = true
 
 func _on_Area2D_body_exited(body):
 	if body.name == "Player":
-		state = SEENT
+		player_detected = false
 
 func _process(delta):
-	match state:
-		SEE:
-			see()
-		SEENT:
-			seent()
+	match player_detected:
+		true:
+			chase()
+		false:
+			foolinaround()
 
-func see():
-	var direction = (player_position - self.position).normalized()
+func chase():
+	speed = 100
+	var player_direction = (player_position - self.position).normalized()
 	animation_tree.get("parameters/playback").travel("run")
-	animation_tree.set("parameters/run/blend_position", direction)
-	var velocity = Vector2.ZERO
-	var speed = 100
-	var acceleration = 1000
-	velocity = velocity.move_toward(speed * direction, acceleration)
-	move_and_slide(velocity)
+	animation_tree.set("parameters/run/blend_position", player_direction)
+	velocity = Vector2.ZERO
+	velocity = velocity.move_toward(speed * player_direction, acceleration)
+	velocity = move_and_slide(velocity)
 	
-func seent():
+func foolinaround():
+	speed = 50
 	animation_tree.get("parameters/playback").travel("idle")
-	animation_tree.set("parameters/idle/blend_position", random_direction)
+	animation_tree.set("parameters/idle/blend_position", direction)
+	match state:
+		IDLE:
+			pass
+		NEW_DIRECTION:
+			direction = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
+			state = choose([IDLE,MOVE])
+		MOVE:
+			animation_tree.get("parameters/playback").travel("walk")
+			animation_tree.set("parameters/walk/blend_position", direction)
+			velocity = velocity.move_toward(speed * direction, acceleration)
+			velocity = move_and_slide(velocity)
+
+func _on_FoolinAroundTimer_timeout():
+	timer.wait_time = rand_range(0,3)
+	state = choose([IDLE,NEW_DIRECTION,MOVE])
+
+func choose(array):
+	array.shuffle()
+	return array.front()
 
 func handle_player_position(position):
 	player_position = position
-
-func _on_Timer_timeout():
-	random_direction = Vector2(rand_range(-1, 1), rand_range(-1, 1))
 
 func _on_Hurtbox_body_entered(body):
 	if body.is_in_group("bullet"):
@@ -67,6 +93,7 @@ func _on_Hurtbox_body_entered(body):
 
 func take_damage(hit_position):
 	health -= 1
+	player_detected = true
 	var blood_hit = blood_hit_path.instance()
 	blood_hit.position = hit_position
 	get_tree().current_scene.add_child(blood_hit)

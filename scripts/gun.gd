@@ -24,6 +24,7 @@ func _physics_process(_delta):
 
 func shoot():
 	if can_shoot == true && delay == false:
+		$GunShotAudio.play()
 		var bullet = bullet_path.instance()
 		get_tree().current_scene.add_child(bullet) # instead of 'get_parent().add_child(bullet)' because diff scene
 		bullet.position = $Sprite/Position2D.global_position

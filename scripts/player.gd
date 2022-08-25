@@ -84,6 +84,7 @@ func unarmed(delta):
 	$YSort/Gun.visible = false
 	if Input.is_action_just_pressed("mouse_right"):
 		state = AIM
+		$AimAudio.play()
 
 
 
