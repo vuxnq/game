@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/glock.wav-799afc27847811596d6e4e85ffcaa1e6.sample"
+path="res://.import/footstep1.wav-4f561f3b92721fc22b59ba46ca10eae7.sample"
 
 [deps]
 
-source_file="res://assets/glock.wav"
-dest_files=[ "res://.import/glock.wav-799afc27847811596d6e4e85ffcaa1e6.sample" ]
+source_file="res://assets/footstep1.wav"
+dest_files=[ "res://.import/footstep1.wav-4f561f3b92721fc22b59ba46ca10eae7.sample" ]
 
 [params]
 
