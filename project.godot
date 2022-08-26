@@ -16,6 +16,11 @@ boot_splash/show_image=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
+[autoload]
+
+Hud="*res://scenes/hud.tscn"
+DeathScreen="*res://scenes/death_screen.tscn"
+
 [display]
 
 window/size/width=480

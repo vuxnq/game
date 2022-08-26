@@ -1,6 +1,6 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
-[ext_resource path="res://assets/enemy.png" type="Texture" id=1]
+[ext_resource path="res://assets/texture/enemy.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemy.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -590,6 +590,9 @@ radius = 110.041
 [sub_resource type="CapsuleShape2D" id=96]
 height = 4.0
 
+[sub_resource type="OccluderPolygon2D" id=97]
+polygon = PoolVector2Array( -5, 11, 5, 11, 6, 9, 5, 7, -5, 7, -6, 9 )
+
 [node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
 position = Vector2( 0, -11 )
 z_index = 1
@@ -654,6 +657,10 @@ shape = SubResource( 96 )
 [node name="FoolinAroundTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2( 0, 1 )
+occluder = SubResource( 97 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

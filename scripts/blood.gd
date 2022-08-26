@@ -4,6 +4,7 @@ var fadeout = false
 
 func _ready():
 	self.emitting = true
+	$AudioStreamPlayer2D.play()
 	z_index = 1
 
 func _process(delta):

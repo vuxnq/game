@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gun_reload.png-781aa1f876742aec92bf26bfd96f99e7.stex"
+path="res://.import/health.png-c1cdadf7bc3dfff4e6b8b3932f19456b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gun_reload.png"
-dest_files=[ "res://.import/gun_reload.png-781aa1f876742aec92bf26bfd96f99e7.stex" ]
+source_file="res://assets/hud/health.png"
+dest_files=[ "res://.import/health.png-c1cdadf7bc3dfff4e6b8b3932f19456b.stex" ]
 
 [params]
 

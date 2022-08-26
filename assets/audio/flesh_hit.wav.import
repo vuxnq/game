@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/gun.wav-763c504fc5e4edf423e12da5576e8c7e.sample"
+path="res://.import/flesh_hit.wav-df806ecced0b4df7ae7721a9df1cd188.sample"
 
 [deps]
 
-source_file="res://assets/gun.wav"
-dest_files=[ "res://.import/gun.wav-763c504fc5e4edf423e12da5576e8c7e.sample" ]
+source_file="res://assets/audio/flesh_hit.wav"
+dest_files=[ "res://.import/flesh_hit.wav-df806ecced0b4df7ae7721a9df1cd188.sample" ]
 
 [params]
 

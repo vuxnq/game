@@ -4,8 +4,8 @@ onready var animation_tree := $AnimationTree
 onready var timer = $FoolinAroundTimer
 onready var blood_hit_path = preload("res://scenes/effects/blood_hit.tscn")
 onready var blood_death_path = preload("res://scenes/effects/blood_death.tscn")
-onready var damaged1_texture = preload("res://assets/enemy_damage1.png")
-onready var damaged2_texture = preload("res://assets/enemy_damage2.png")
+onready var damaged1_texture = preload("res://assets/texture/enemy_damage1.png")
+onready var damaged2_texture = preload("res://assets/texture/enemy_damage2.png")
 
 enum {
 	IDLE,

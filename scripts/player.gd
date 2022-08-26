@@ -3,9 +3,7 @@ extends KinematicBody2D
 var acceleration := 800
 var friction := 1000
 
-
 var health = 100
-
 
 var velocity := Vector2.ZERO
 var speed
@@ -18,8 +16,8 @@ signal player_position
 onready var damage_timer = $DamageTimer
 onready var animation_tree := $AnimationTree
 onready var player_sprite := $YSort/Sprite
-onready var player_texture = preload("res://assets/player.png")
-onready var player_nohand_texture = preload("res://assets/player_nohand.png")
+onready var player_texture = preload("res://assets/texture/player.png")
+onready var player_nohand_texture = preload("res://assets/texture/player_nohand.png")
 
 onready var blood_hit_path = preload("res://scenes/effects/blood_hit.tscn")
 onready var blood_death_path = preload("res://scenes/effects/blood_death.tscn")
@@ -36,6 +34,7 @@ func _ready():
 	damage_timer.connect("timeout", self, "take_damage")
 
 func _physics_process(delta):
+	Hud.health = health	
 	movement(delta)
 	match state:
 		UNARMED:
@@ -69,7 +68,7 @@ func unarmed(delta):
 	speed = 90
 	player_sprite.texture = player_texture
 	
-	$Camera2D.offset = $Camera2D.offset.move_toward(Vector2.ZERO, 100 * delta)
+	$Camera2D.offset = $Camera2D.offset.move_toward(Vector2.ZERO, 1000 * delta)
 	
 	if input_vector != Vector2.ZERO:
 		animation_tree.get("parameters/playback").travel("walk")
@@ -95,7 +94,7 @@ func aim(delta):
 	player_sprite.texture = player_nohand_texture
 	
 	mouse_direction = get_local_mouse_position().normalized()
-	$Camera2D.offset = $Camera2D.offset.move_toward(mouse_direction * 15, 100 * delta)
+	$Camera2D.offset = (get_global_mouse_position() - self.global_position) / 3
 	$Camera2D.drag_margin_h_enabled = false
 	$Camera2D.drag_margin_v_enabled = false
 	
@@ -130,6 +129,7 @@ func aim(delta):
 
 func _on_Hurtbox_body_entered(body):
 	if body.is_in_group("enemy"):
+		take_damage()
 		damage_timer.start()
 		
 func _on_Hurtbox_body_exited(body):
@@ -145,12 +145,11 @@ func take_damage():
 	blood_hit.spread = 180
 	get_tree().current_scene.add_child(blood_hit)
 	if health < 1:
+		health = 0
+		damage_timer.stop()
 		var blood_death = blood_death_path.instance()
 		blood_death.position = self.position
-		blood_death.amount = 32
-		blood_death.scale_amount = 5
+		blood_death.amount = 128
 		blood_death.spread = 180
 		get_tree().current_scene.add_child(blood_death)
-	print(health)
-	
-
+		DeathScreen.enable()

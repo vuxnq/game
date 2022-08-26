@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blood.png-a27789a7cbeb0201099dddc3b5e3a36b.stex"
+path="res://.import/player_nohand.png-ad114df1abd0358ae0edc5eb045a0470.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/blood.png"
-dest_files=[ "res://.import/blood.png-a27789a7cbeb0201099dddc3b5e3a36b.stex" ]
+source_file="res://assets/texture/player_nohand.png"
+dest_files=[ "res://.import/player_nohand.png-ad114df1abd0358ae0edc5eb045a0470.stex" ]
 
 [params]
 

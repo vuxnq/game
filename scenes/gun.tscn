@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/gun.png" type="Texture" id=1]
+[ext_resource path="res://assets/texture/gun.png" type="Texture" id=1]
 [ext_resource path="res://scripts/gun.gd" type="Script" id=2]
-[ext_resource path="res://assets/gun.wav" type="AudioStream" id=3]
-[ext_resource path="res://assets/gun_empty.wav" type="AudioStream" id=4]
-[ext_resource path="res://assets/gun_empty.png" type="Texture" id=5]
-[ext_resource path="res://assets/gun_reload.png" type="Texture" id=6]
-[ext_resource path="res://assets/gun_reload.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/gun.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/gun_empty.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/texture/gun_empty.png" type="Texture" id=5]
+[ext_resource path="res://assets/texture/gun_reload.png" type="Texture" id=6]
+[ext_resource path="res://assets/audio/gun_reload.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/texture/flash.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -214,6 +215,16 @@ hframes = 4
 [node name="Position2D" type="Position2D" parent="Sprite"]
 position = Vector2( 18, 0 )
 
+[node name="Light2D" type="Light2D" parent="Sprite"]
+position = Vector2( 18, 0 )
+enabled = false
+texture = ExtResource( 8 )
+texture_scale = 2.0
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_buffer_size = 32
+
 [node name="GunAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite")
 autoplay = "RESET"
@@ -234,4 +245,9 @@ volume_db = -5.0
 stream = ExtResource( 7 )
 volume_db = -5.0
 
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="animation_finished" from="GunAnimation" to="." method="_on_GunAnimation_animation_finished"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]

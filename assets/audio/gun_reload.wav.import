@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/footstep2.wav-07c08254b68fe6cfb4e2b66edc5e4075.sample"
+path="res://.import/gun_reload.wav-db5ec3b294e29b1dbcdf5e0276654a2f.sample"
 
 [deps]
 
-source_file="res://assets/footstep2.wav"
-dest_files=[ "res://.import/footstep2.wav-07c08254b68fe6cfb4e2b66edc5e4075.sample" ]
+source_file="res://assets/audio/gun_reload.wav"
+dest_files=[ "res://.import/gun_reload.wav-db5ec3b294e29b1dbcdf5e0276654a2f.sample" ]
 
 [params]
 

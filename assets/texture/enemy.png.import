@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_nohand.png-550026c34dba7fe7094bcaee9d1303c8.stex"
+path="res://.import/enemy.png-551719fef1bb7cbc163347a0ebe8f4f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player_nohand.png"
-dest_files=[ "res://.import/player_nohand.png-550026c34dba7fe7094bcaee9d1303c8.stex" ]
+source_file="res://assets/texture/enemy.png"
+dest_files=[ "res://.import/enemy.png-551719fef1bb7cbc163347a0ebe8f4f9.stex" ]
 
 [params]
 
