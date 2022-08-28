@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/pause_screen.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.392157 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -35.0
+margin_right = 50.0
+margin_bottom = 35.0
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -22.0
+margin_right = 22.0
+margin_bottom = 15.0
+theme = ExtResource( 1 )
+text = "PAUSED"
+
+[node name="ContinueButton" type="Button" parent="NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.5
+margin_top = -10.0
+margin_right = 31.5
+margin_bottom = 10.0
+theme = ExtResource( 1 )
+text = "continue"
+
+[node name="QuitButton" type="Button" parent="NinePatchRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = -20.0
+margin_right = 32.0
+theme = ExtResource( 1 )
+text = "quit"
+
+[connection signal="pressed" from="NinePatchRect/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="NinePatchRect/QuitButton" to="." method="_on_QuitButton_pressed"]

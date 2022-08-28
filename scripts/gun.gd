@@ -11,7 +11,7 @@ var reload = false
 var ammo = 15
 
 func _physics_process(_delta):
-	Hud.ammo = ammo	
+	Hud.ammo = ammo
 	mouse_direction = get_local_mouse_position().normalized()
 	$Sprite.position.x = 3
 	$Sprite.flip_v = false
@@ -33,6 +33,7 @@ func reload():
 	$GunAnimation.play("reload")
 	delay = true
 	reload = true
+	Hud.reload = false
 	
 	
 func shoot():
@@ -58,6 +59,7 @@ func _on_GunAnimation_animation_finished(shoot):
 		$Sprite.texture = gun_texture
 	else:
 		$Sprite.texture = gun_empty_texture
+		Hud.reload = true
 
 
 func _on_FlashTimer_timeout():

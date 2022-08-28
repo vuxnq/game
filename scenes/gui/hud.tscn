@@ -79,3 +79,18 @@ margin_right = -96.0
 margin_bottom = -3.0
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
+
+[node name="ReloadLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_top = -18.0
+margin_right = 64.0
+margin_bottom = -3.0
+theme = ExtResource( 6 )
+custom_colors/font_outline_modulate = Color( 0.243137, 0.152941, 0.192157, 1 )
+custom_colors/font_color_shadow = Color( 0.721569, 0.435294, 0.313726, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "press \"r\" to reload"

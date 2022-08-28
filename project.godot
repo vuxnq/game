@@ -11,15 +11,16 @@ config_version=4
 [application]
 
 config/name="monke"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/gui/main_menu.tscn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-Hud="*res://scenes/hud.tscn"
-DeathScreen="*res://scenes/death_screen.tscn"
+Hud="*res://scenes/gui/hud.tscn"
+DeathScreen="*res://scenes/gui/death_screen.tscn"
+PauseScreen="*res://scenes/gui/pause_screen.tscn"
 
 [display]
 
